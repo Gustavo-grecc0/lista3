@@ -20,27 +20,23 @@ usuarios = [
     }
 ]
 
-#Consultar todos os usuários
 @app.route('/usuarios', methods=['GET'])
 def consultar_todos():
     return jsonify(usuarios)
 
         
-#Consultar por Nome
 @app.route('/usuarios/consultaNome/<string:Nome>', methods=['GET'])
 def consultar_usuario_nome(Nome):
     for nome in usuarios:
         if nome.get("Nome") == Nome:
             return jsonify(nome)
-        
-#Consultar por ID
+
 @app.route('/usuarios/consultaID/<int:ID>', methods=['GET'])
 def consultar_usuario_id(ID):
     for nome in usuarios:
         if nome.get("ID") == ID:
             return jsonify(nome)
 
-#Alterar usuario
 @app.route('/usuarios/altera/<int:ID>', methods=['PUT'])
 def editar_usuario_id(ID):
     usuario_alterado = request.get_json()
@@ -49,14 +45,14 @@ def editar_usuario_id(ID):
             usuarios[indice].update(usuario_alterado)
             return jsonify(usuarios[indice])
 
-#Criar usuario
+
 @app.route('/usuarios/criar', methods=['POST'])
 def criar_usuario():
     novo_usuario = request.get_json()
     usuarios.append(novo_usuario)
     return jsonify(usuarios)
 
-#Excluir usuario
+
 @app.route('/usuarios/excluir/<int:ID>', methods=['DELETE'])
 def excluir_usuario (ID):
     for i, nome in enumerate(usuarios):
